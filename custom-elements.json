@@ -4,50 +4,63 @@
     "modules": [
         {
             "kind": "javascript-module",
-            "path": "dist/tab/TabWebcomponent.js",
+            "path": "dist/chart/ChartJsWebcomponent.js",
             "declarations": [
                 {
                     "kind": "class",
-                    "description": "A Tab Control",
-                    "name": "TabWebcomponent",
+                    "description": "A Chart Js",
+                    "name": "ChartJsWebcomponent",
                     "members": [
                         {
                             "kind": "field",
-                            "name": "selectedIndex",
+                            "name": "data",
                             "type":  {
-                                "text": "number"
+                                "text": "object"
+                            }
+                        },
+                        {
+                            "kind": "field",
+                            "name": "borderColor",
+                            "type":  {
+                                "text": "string"
+                            }
+                        },
+                        {
+                            "kind": "field",
+                            "name": "backgroundColor",
+                            "type":  {
+                                "text": "string"
                             }
                         }
                     ],
                     "attributes": [
                         {
-                            "name": "selected-index",
-                            "fieldName": "selectedIndex"
-                        }
-                    ],
-                    "events": [
+                            "name": "data",
+                            "fieldName": "data"
+                        },
                         {
-                            "name": "selected-index-changed",
-                            "description": "Is raised when the selected index changes",
-                            "type": {
-                                "title": "String"
-                            }
+                            "name": "border-color",
+                            "fieldName": "borderColor"
+                        },
+                        {
+                            "name": "background-color",
+                            "fieldName": "backgroundColor"
                         }
                     ],
                     "superclass": {
                         "name": "BaseCustomWebComponentConstructorAppend"
                     },
-                    "tagName": "node-projects-tab",
+                    "tagName": "node-projects-chart-js",
                     "customElement": true
                 }
             ],
             "exports": [
                 {
                     "kind": "custom-element-definition",
-                    "name": "node-projects-tab",
+                    "name": "node-projects-chart-js",
                     "declaration": {
-                        "name": "TabWebcomponent",
-                        "module": "dist/tab/TabWebcomponent.js"
+                        "name": "ChartJsWebcomponent",
+                        "module": "dist/chart/ChartJsWebcomponent.js"
                     }
                 }
             ]
