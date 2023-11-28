@@ -68,7 +68,7 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
         }
     }
 
-    #enableXScale: boolean
+    #enableXScale: boolean = false;
     public get enableXScale() {
         return this.#enableXScale;
     }
@@ -79,7 +79,7 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
         }
     }
 
-    #enableYScale: boolean
+    #enableYScale: boolean = false;
     public get enableYScale() {
         return this.#enableYScale;
     }
