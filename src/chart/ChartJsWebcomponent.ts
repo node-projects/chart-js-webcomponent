@@ -1,10 +1,14 @@
 import { BaseCustomWebComponentConstructorAppend, css, html } from "@node-projects/base-custom-webcomponent";
 import Chart from 'chart.js/auto/auto.js';
+//import Chart from 'chart.js/auto';
 
 type DataObject = { value: number, label: number | string };
 type DataArray = [value: number, label: number | string];
 type Data = DataObject | DataArray;
 
+function requestAnimationFramePromise() {
+    return new Promise(resolve => requestAnimationFrame(resolve));
+}
 export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend {
 
     public static override readonly style = css`
@@ -26,7 +30,9 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
     public static properties = {
         data: Object,
         borderColor: String,
-        backgroundColor: String
+        backgroundColor: String,
+        enableXScale: Boolean,
+        enableYScale: Boolean
     }
 
     #data: Data[]
@@ -62,6 +68,28 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
         }
     }
 
+    #enableXScale: boolean
+    public get enableXScale() {
+        return this.#enableXScale;
+    }
+    public set enableXScale(value) {
+        this.#enableXScale = value;
+        if (this.#ready) {
+            this.#renderChart();
+        }
+    }
+
+    #enableYScale: boolean
+    public get enableYScale() {
+        return this.#enableYScale;
+    }
+    public set enableYScale(value) {
+        this.#enableYScale = value;
+        if (this.#ready) {
+            this.#renderChart();
+        }
+    }
+
     #root: HTMLCanvasElement;
     #ready: boolean;
     #chart: Chart<"line", number[], string | number>;
@@ -75,12 +103,12 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
 
     public ready() {
         this._parseAttributesToProperties(true);
-        
+
         this.#renderChart();
         this.#ready = true;
     }
 
-    #renderChart() {
+    async #renderChart() {
         let labels: (string | number)[];
         let values: number[];
         if (Array.isArray(this.#data[0])) {
@@ -93,6 +121,9 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
 
         if (this.#chart)
             this.#chart.destroy();
+
+        if (this.offsetWidth == 0 || this.offsetHeight == 0)
+            await requestAnimationFramePromise();
 
         this.#chart = new Chart(
             this.#root,
@@ -115,8 +146,25 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
                     plugins: {
                         legend: {
                             display: false
+                        },
+                        tooltip: {
+                            enabled: false
                         }
-                    }
+                    },
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: this.#enableXScale
+                        },
+                        y: {
+                            display: this.#enableYScale
+                        }
+                    },
+                    
                 }
             }
         );

@@ -31,6 +31,20 @@
                             "type":  {
                                 "text": "string"
                             }
+                        },
+                        {
+                            "kind": "field",
+                            "name": "enableXScale",
+                            "type":  {
+                                "text": "boolean"
+                            }
+                        },
+                        {
+                            "kind": "field",
+                            "name": "enableYScale",
+                            "type":  {
+                                "text": "boolean"
+                            }
                         }
                     ],
                     "attributes": [
@@ -45,6 +59,14 @@
                         {
                             "name": "background-color",
                             "fieldName": "backgroundColor"
+                        },
+                        {
+                            "name": "enable-x-scale",
+                            "fieldName": "enableXScale"
+                        },
+                        {
+                            "name": "enable-y-scale",
+                            "fieldName": "enableYScale"
                         }
                     ],
                     "superclass": {
