@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <script type="esms-options">
+            {
+            "shimMode": true
+            }
+        </script>
+    <script src="../node_modules/es-module-shims/dist/es-module-shims.js"></script>
+    <script>
+        const importMap = {
+            imports: {
+                "@node-projects/base-custom-webcomponent": "./node_modules/@node-projects/base-custom-webcomponent/",
+                "chart.js": "./node_modules/chart.js/"
+            }
+        };
+        importShim.addImportMap(importMap);
+
+        importShim('../dist/index.js');
+    </script>
+    <style>
+        .nummer2::part(header) {
+            background: red;
+            font-size: 10px;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <node-projects-chart-js data='[
+    { "label": 2010, "value": 10 },
+    { "label": 2011, "value": 20 },
+    { "label": 2012, "value": 15 },
+    { "label": 2013, "value": 25 },
+    { "label": 2014, "value": 22 },
+    { "label": 2015, "value": 30 },
+    { "label": 2016, "value": 28 }
+]' style="position: absolute; width: 600px; height: 500px;">
+    </node-projects-chart-js>
+
+    <node-projects-chart-js border-color="#ff6384" data='[
+    { "label": 2010, "value": 10 },
+    { "label": 2011, "value": 20 },
+    { "label": 2012, "value": 15 },
+    { "label": 2013, "value": 25 },
+    { "label": 2014, "value": 22 },
+    { "label": 2015, "value": 30 },
+    { "label": 2016, "value": 28 }
+]' style="position: absolute; width: 600px; height: 500px; top: 550px; position: absolute;">
+    </node-projects-chart-js>
+</body>
+
+</html>
