@@ -1,5 +1,5 @@
 import { BaseCustomWebComponentConstructorAppend, css, html } from "@node-projects/base-custom-webcomponent";
-import Chart from 'chart.js/auto';
+import Chart from 'chart.js/auto/auto.js';
 
 type DataObject = { value: number, label: number | string };
 type DataArray = [value: number, label: number | string];
