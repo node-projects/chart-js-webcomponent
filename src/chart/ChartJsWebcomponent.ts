@@ -74,7 +74,8 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
     }
 
     public ready() {
-        this._parseAttributesToProperties();
+        this._parseAttributesToProperties(true);
+        
         this.#renderChart();
         this.#ready = true;
     }
