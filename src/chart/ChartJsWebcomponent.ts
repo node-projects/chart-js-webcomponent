@@ -32,7 +32,8 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
         borderColor: String,
         backgroundColor: String,
         enableXScale: Boolean,
-        enableYScale: Boolean
+        enableYScale: Boolean,
+        type: String
     }
 
     #data: Data[]
@@ -90,7 +91,7 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
         }
     }
 
-    #type: 'line' | 'bar';
+    #type: 'line' | 'bar' = 'line';
     public get type() {
         return this.#type;
     }
@@ -149,6 +150,7 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
             this.#chart.data.datasets[0].backgroundColor = this.#backgroundColor;
             this.#chart.options.scales.x.display = this.#enableXScale;
             this.#chart.options.scales.y.display = this.#enableYScale;
+            this.#chart.update();
         } else {
             this.#chart = new Chart(
                 this.#root,
