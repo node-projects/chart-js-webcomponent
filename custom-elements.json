@@ -22,14 +22,16 @@
                             "kind": "field",
                             "name": "borderColor",
                             "type":  {
-                                "text": "string"
+                                "text": "string",
+                                "editor": "color"
                             }
                         },
                         {
                             "kind": "field",
                             "name": "backgroundColor",
                             "type":  {
-                                "text": "string"
+                                "text": "string",
+                                "editor": "color"
                             }
                         },
                         {
@@ -44,6 +46,13 @@
                             "name": "enableYScale",
                             "type":  {
                                 "text": "boolean"
+                            }
+                        },
+                        {
+                            "kind": "field",
+                            "name": "type",
+                            "type":  {
+                                "text": "'line'|'bar'"
                             }
                         }
                     ],
@@ -67,6 +76,10 @@
                         {
                             "name": "enable-y-scale",
                             "fieldName": "enableYScale"
+                        },
+                        {
+                            "name": "type",
+                            "fieldName": "type"
                         }
                     ],
                     "superclass": {

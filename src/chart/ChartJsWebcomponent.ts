@@ -90,9 +90,26 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
         }
     }
 
+    #type: 'line' | 'bar';
+    public get type() {
+        return this.#type;
+    }
+    public set type(value) {
+        if (this.#type != value) {
+            if (this.#chart) {
+                this.#chart.destroy();
+                this.#chart = null;
+            }
+            this.#type = value;
+            if (this.#ready) {
+                this.#renderChart();
+            }
+        }
+    }
+
     #root: HTMLCanvasElement;
     #ready: boolean;
-    #chart: Chart<"line", number[], string | number>;
+    #chart: Chart<'line' | 'bar', number[], string | number>;
 
     constructor() {
         super();
@@ -119,55 +136,64 @@ export class ChartJsWebcomponent extends BaseCustomWebComponentConstructorAppend
             values = this.#data.map(row => (<DataObject>row).value);
         }
 
-        if (this.#chart)
-            this.#chart.destroy();
+        //if (this.#chart)
+        //    this.#chart.destroy();
 
         if (this.offsetWidth == 0 || this.offsetHeight == 0)
             await requestAnimationFramePromise();
 
-        this.#chart = new Chart(
-            this.#root,
-            {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            data: values,
-                            fill: true,
-                            borderColor: this.#borderColor,
-                            backgroundColor: this.#backgroundColor
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
+        if (this.#chart) {
+            this.#chart.data.labels = labels;
+            this.#chart.data.datasets[0].data = values;
+            this.#chart.data.datasets[0].borderColor = this.#borderColor;
+            this.#chart.data.datasets[0].backgroundColor = this.#backgroundColor;
+            this.#chart.options.scales.x.display = this.#enableXScale;
+            this.#chart.options.scales.y.display = this.#enableYScale;
+        } else {
+            this.#chart = new Chart(
+                this.#root,
+                {
+                    type: this.#type,
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                data: values,
+                                fill: true,
+                                borderColor: this.#borderColor,
+                                backgroundColor: this.#backgroundColor
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                enabled: false
+                            }
                         },
-                        tooltip: {
-                            enabled: false
-                        }
-                    },
-                    elements: {
-                        point:{
-                            radius: 0
-                        }
-                    },
-                    scales: {
-                        x: {
-                            display: this.#enableXScale
+                        elements: {
+                            point: {
+                                radius: 0
+                            }
                         },
-                        y: {
-                            display: this.#enableYScale
-                        }
-                    },
-                    
+                        scales: {
+                            x: {
+                                display: this.#enableXScale
+                            },
+                            y: {
+                                display: this.#enableYScale
+                            }
+                        },
+
+                    }
                 }
-            }
-        );
+            );
+        }
     }
 }
 
